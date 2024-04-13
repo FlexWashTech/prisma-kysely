@@ -22,6 +22,7 @@ test("it respects overrides when generating field types", () => {
     fileName: "types.ts",
     enumFileName: "types.ts",
     camelCase: false,
+    columnNameArrays: false,
     readOnlyIds: false,
   };
 
@@ -50,6 +51,7 @@ test("it respects overrides when generating field types", () => {
     enumFileName: "types.ts",
     stringTypeOverride: "cheese",
     camelCase: false,
+    columnNameArrays: false,
     readOnlyIds: false,
   });
 
@@ -62,6 +64,7 @@ test("it respects differences between database engines", () => {
     fileName: "types.ts",
     enumFileName: "types.ts",
     camelCase: false,
+    columnNameArrays: false,
     readOnlyIds: false,
   });
 
@@ -70,6 +73,7 @@ test("it respects differences between database engines", () => {
     fileName: "types.ts",
     enumFileName: "types.ts",
     camelCase: false,
+    columnNameArrays: false,
     readOnlyIds: false,
   });
 
@@ -78,6 +82,7 @@ test("it respects differences between database engines", () => {
     fileName: "types.ts",
     enumFileName: "types.ts",
     camelCase: false,
+    columnNameArrays: false,
     readOnlyIds: false,
   });
 
@@ -93,6 +98,7 @@ test("it throws an error when unsupported type is encountered", () => {
       fileName: "types.ts",
       enumFileName: "types.ts",
       camelCase: false,
+      columnNameArrays: false,
       readOnlyIds: false,
     })
   ).toThrowError(new Error("Unsupported type Json for database sqlite"));

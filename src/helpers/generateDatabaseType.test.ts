@@ -15,6 +15,7 @@ test("it works for plain vanilla type names", () => {
       fileName: "",
       enumFileName: "",
       camelCase: false,
+      columnNameArrays: false,
       readOnlyIds: false,
     }
   );
@@ -39,6 +40,7 @@ test("it respects camelCase option names", () => {
       fileName: "",
       enumFileName: "",
       camelCase: true,
+      columnNameArrays: false,
       readOnlyIds: false,
     }
   );
@@ -63,6 +65,7 @@ test("it works for table names with spaces and weird symbols", () => {
       fileName: "",
       enumFileName: "",
       camelCase: false,
+      columnNameArrays: false,
       readOnlyIds: false,
     }
   );

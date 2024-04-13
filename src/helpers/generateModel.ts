@@ -15,6 +15,7 @@ import type { Config } from "~/utils/validateConfig";
 const defaultTypesImplementedInJS = ["cuid", "uuid"];
 
 export const generateModel = (model: DMMF.Model, config: Config) => {
+  const columnNames: string[] = [];
   const properties = model.fields.flatMap((field) => {
     const isGenerated =
       field.hasDefaultValue &&
@@ -31,11 +32,13 @@ export const generateModel = (model: DMMF.Model, config: Config) => {
     if (field.kind === "object" || field.kind === "unsupported") return [];
 
     const dbName = typeof field.dbName === "string" ? field.dbName : null;
+    const name = normalizeCase(dbName || field.name, config);
+    columnNames.push(name);
 
     if (field.kind === "enum") {
       return generateField({
         isId: field.isId,
-        name: normalizeCase(dbName || field.name, config),
+        name,
         type: ts.factory.createTypeReferenceNode(
           ts.factory.createIdentifier(field.type),
           undefined
@@ -49,7 +52,7 @@ export const generateModel = (model: DMMF.Model, config: Config) => {
     }
 
     return generateField({
-      name: normalizeCase(dbName || field.name, config),
+      name,
       type: ts.factory.createTypeReferenceNode(
         ts.factory.createIdentifier(
           generateFieldType(field.type, config, typeOverride)
@@ -73,6 +76,29 @@ export const generateModel = (model: DMMF.Model, config: Config) => {
       ts.factory.createIdentifier(model.name),
       undefined,
       ts.factory.createTypeLiteralNode(properties)
+    ),
+    columnNameArrayDefinition: ts.factory.createVariableStatement(
+      [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+      ts.factory.createVariableDeclarationList(
+        [
+          ts.factory.createVariableDeclaration(
+            `columnsOf${model.name}`,
+            undefined,
+            undefined,
+            ts.factory.createAsExpression(
+              ts.factory.createArrayLiteralExpression(
+                columnNames.map((columnName) => ts.factory.createStringLiteral(columnName)),
+                true,
+              ),
+              ts.factory.createTypeReferenceNode(
+                ts.factory.createIdentifier("const"),
+                undefined,
+              ),
+            ),
+          ),
+        ],
+        ts.NodeFlags.Const,
+      ),
     ),
   };
 };

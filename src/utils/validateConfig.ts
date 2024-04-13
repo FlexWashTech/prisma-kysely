@@ -38,6 +38,9 @@ export const configValidator = z
     // Support the Kysely camel case plugin
     camelCase: booleanStringLiteral.default(false),
 
+    // Generate column name arrays
+    columnNameArrays: booleanStringLiteral.default(false),
+
     // Use GeneratedAlways for IDs instead of Generated
     readOnlyIds: booleanStringLiteral.default(false),
   })

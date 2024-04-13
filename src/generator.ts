@@ -65,7 +65,10 @@ generatorHandler({
     // Parse it all into a string. Either 1 or 2 files depending on user config
     const files = generateFiles({
       databaseType,
-      modelDefinitions: models.map((m) => m.definition),
+      modelDefinitions: models.flatMap((m) => [
+        m.definition,
+        ...(config.columnNameArrays ? [m.columnNameArrayDefinition] : []),
+      ]),
       enumNames: options.dmmf.datamodel.enums.map((e) => e.name),
       enums,
       enumsOutfile: config.enumFileName,

@@ -11,7 +11,7 @@ export function generateFiles(opts: {
   enumNames: string[];
   enumsOutfile: string;
   databaseType: TypeAliasDeclaration;
-  modelDefinitions: TypeAliasDeclaration[];
+  modelDefinitions: (VariableStatement | TypeAliasDeclaration)[];
 }) {
   // Don't generate a separate file for enums if there are no enums
   if (opts.enumsOutfile === opts.typesOutfile || opts.enums.length === 0) {

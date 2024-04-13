@@ -9,6 +9,7 @@ test("converts names to camel case when config value is set", () => {
     databaseProvider: "postgresql",
     fileName: "",
     enumFileName: "",
+    columnNameArrays: false,
     readOnlyIds: false,
   });
 
@@ -22,6 +23,7 @@ test("doesn't convert names to camel case when config value isn't set", () => {
     databaseProvider: "postgresql",
     fileName: "",
     enumFileName: "",
+    columnNameArrays: false,
     readOnlyIds: false,
   });
 
